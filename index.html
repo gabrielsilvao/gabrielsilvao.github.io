@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salvar Texto Localmente</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin: 10px 0;
+      padding: 10px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 Bloco de Notas Simples</h1>
+  <p>Digite algo abaixo e ele será salvo automaticamente no seu navegador:</p>
+  
+  <textarea id="userText" placeholder="Escreva aqui..."></textarea>
+  <br>
+  <button onclick="salvarTexto()">Salvar</button>
+  <button onclick="limparTexto()">Limpar</button>
+  
+  <p id="savedMessage"></p>
+
+  <script>
+    // Carrega o texto salvo ao abrir a página
+    document.getElementById('userText').value = localStorage.getItem('textoSalvo') || '';
+
+    // Função para salvar o texto no localStorage
+    function salvarTexto() {
+      const texto = document.getElementById('userText').value;
+      localStorage.setItem('textoSalvo', texto);
+      document.getElementById('savedMessage').textContent = 'Texto salvo com sucesso! ✅';
+      setTimeout(() => {
+        document.getElementById('savedMessage').textContent = '';
+      }, 2000);
+    }
+
+    // Função para limpar o texto
+    function limparTexto() {
+      localStorage.removeItem('textoSalvo');
+      document.getElementById('userText').value = '';
+      document.getElementById('savedMessage').textContent = 'Texto limpo! 🗑️';
+      setTimeout(() => {
+        document.getElementById('savedMessage').textContent = '';
+      }, 2000);
+    }
+
+    // Salva automaticamente ao digitar (opcional)
+    document.getElementById('userText').addEventListener('input', salvarTexto);
+  </script>
+</body>
+</html>
